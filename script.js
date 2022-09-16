@@ -1,3 +1,7 @@
+let rounds = 1;
+let playerScore = 0;
+let computerScore = 0;
+
 function getComputerChoice() {
     let computerNumber = Math.random() * 3;
     if (computerNumber < 1) {
@@ -11,44 +15,64 @@ function getComputerChoice() {
     }
 }
 
-function playRound(playerSelection, computerSelection) {
+function playRound(playerSelection, computerSelection, container) {
     let playerSelectionUpper = playerSelection.toUpperCase();
+    const addResult = document.createElement("div");
     if (playerSelectionUpper === "ROCK") {
         if (computerSelection === "Rock") {
-            return "Tie game! ROCK and ROCK.";
+            addResult.innerText = "Tie game: ROCK and ROCK";
         }
         else if (computerSelection === "PAPER") {
-            return "You lose! PAPER beats ROCK.";
+            addResult.innerText = "You lose! PAPER beats ROCK.";
+            computerScore++;
         }
         else {
-            return "You win! ROCK beats SCISSORS.";
+            addResult.innerText = "You win! ROCK beats SCISSORS.";
+            playerScore++;
         }
     }
     else if (playerSelectionUpper === "PAPER") {
         if (computerSelection === "Rock") {
-            return "You win! PAPER beats ROCK.";
+            addResult.innerText = "You win! PAPER beats ROCK.";
+            playerScore++;
         }
         else if (computerSelection === "Paper") {
-            return "Tie game! PAPER and PAPER.";
+            addResult.innerText = "Tie game! PAPER and PAPER.";
+
         }
         else {
-            return "You lose! SCISSORS beats PAPER.";
+            addResult.innerText = "You lose! SCISSORS beats PAPER.";
+            computerScore++;
+
         }
     }
     else if (playerSelectionUpper === "SCISSORS") {
         if (computerSelection === "Rock") {
-            return "You lose! ROCK beats SCISSORS.";
+            addResult.innerText = "You lose! ROCK beats SCISSORS.";
+            computerScore++;
+
         }
         else if (computerSelection === "Paper") {
-            return "You win! SCISSORS beats PAPER.";
+            addResult.innerText = "You win! SCISSORS beats PAPER.";
+            playerScore++;
+
         }
         else {
-            return "Tie game! SCISSORS and SCISSORS.";
+            addResult.innerText = "Tie game! SCISSORS and SCISSORS.";
         }
     }
-    else {
-        return "I don't recognize the player's choice";
+
+    addResult.innerText = `Round ${rounds}: ${addResult.innerText} Player score: ${playerScore}. Computer score: ${computerScore}`;
+    if (playerScore >= 5) {
+        addResult.innerText += ". Player has won!"
+    } else if (computerScore >= 5) {
+        addResult.innerText += ". Computer has won!"
     }
+
+    container.append(addResult);
+    rounds++;
+
+
 }
 
 function game() {
@@ -78,4 +102,24 @@ function game() {
     }
 }
 
-game();
+const rockInput = document.querySelector(".Rock");
+const paperInput = document.querySelector(".Paper");
+const scissorsInput = document.querySelector(".Scissors");
+const container = document.querySelector(".container");
+console.log(rockInput);
+
+rockInput.addEventListener("click", () => {
+    if (playerScore < 5 && computerScore < 5) {
+        playRound("Rock", getComputerChoice(), container)
+    }
+});
+paperInput.addEventListener("click", () => {
+    if (playerScore < 5 && computerScore < 5) {
+        playRound("Paper", getComputerChoice(), container)
+    }
+});
+scissorsInput.addEventListener("click", () => {
+    if (playerScore < 5 && computerScore < 5) {
+        playRound("Scissors", getComputerChoice(), container)
+    }
+});
