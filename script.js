@@ -75,33 +75,6 @@ function playRound(playerSelection, computerSelection, container) {
 
 }
 
-function game() {
-    let playerScore = 0;
-    let computerScore = 0;
-    for (i = 1; i <= 5; i++) {
-        let result = playRound(prompt("Rock, Paper, or Scissors?"), getComputerChoice());
-        console.log(result);
-        if (result.substring(0, 5) === "You w") {
-            playerScore++;
-        }
-        else if (result.substring(0, 5) === "You l") {
-            computerScore++;
-        } else {
-
-        }
-        console.log(`Player score is ${playerScore} and computer score is ${computerScore}`);
-    }
-    if (playerScore > computerScore) {
-        console.log("You win the set!")
-    }
-    else if (playerScore < computerScore) {
-        console.log("You lose the set!")
-    }
-    else {
-        console.log("The set is tied!")
-    }
-}
-
 const rockInput = document.querySelector(".Rock");
 const paperInput = document.querySelector(".Paper");
 const scissorsInput = document.querySelector(".Scissors");
